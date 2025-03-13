@@ -125,9 +125,9 @@ namespace TCFiapConsultContactsFunction
 
                 logger.LogInformation($"Filtrando contatos pelo FirstName: {firstName} e LastName: {lastName}");
             }
-
-            #endregion
-
         }
+
+        #endregion
+
     }
 }
