@@ -69,7 +69,7 @@ namespace TCFiapConsultContactsFunction
         {
             if (req.Query.TryGetValue("Email", out var email))
             {
-                query = query.Where(i => i.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(i => i.Email.Endereco.Equals(email, StringComparison.OrdinalIgnoreCase));
                 logger.LogInformation($"Filtrando contatos pelo Email: {email}");
             }
         }
@@ -81,7 +81,7 @@ namespace TCFiapConsultContactsFunction
             {
                 if (int.TryParse(phoneValue, out var phoneNumber))
                 {
-                    query = query.Where(i => i.PhoneNumber == phoneNumber);
+                    query = query.Where(i => i.Phone.Number == phoneNumber);
                     logger.LogInformation($"Filtrando contatos pelo PhoneNumber: {phoneNumber}");
                 }
                 else
@@ -101,7 +101,7 @@ namespace TCFiapConsultContactsFunction
             {
                 if (int.TryParse(phoneDddStr, out var phoneDdd))
                 {
-                    query = query.Where(i => i.PhoneDdd == phoneDdd);
+                    query = query.Where(i => i.Phone.DDD == phoneDdd);
                     logger.LogInformation($"Filtrando contatos pelo PhoneDdd: {phoneDdd}");
                 }
                 else
@@ -120,8 +120,8 @@ namespace TCFiapConsultContactsFunction
                 req.Query.TryGetValue("LastName", out var lastName))
             {
                 query = query.Where(i =>
-                    i.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
-                    i.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+                    i.Name.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
+                    i.Name.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
 
                 logger.LogInformation($"Filtrando contatos pelo FirstName: {firstName} e LastName: {lastName}");
             }
