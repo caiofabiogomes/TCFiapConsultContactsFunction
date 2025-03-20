@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using TechChallenge.SDK.Persistence;
+using TechChallenge.SDK.Infrastructure.Persistence;
 
 namespace TCFiapConsultContactsFunction
 {

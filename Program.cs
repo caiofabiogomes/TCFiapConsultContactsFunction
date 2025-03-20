@@ -11,6 +11,9 @@ builder.ConfigureFunctionsWebApplication();
 //     .AddApplicationInsightsTelemetryWorkerService()
 //     .ConfigureFunctionsApplicationInsights();
 
-builder.Services.RegisterSdkModule(builder.Configuration);
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_DATABASE")
+            ?? "Server=localhost;Database=ContactsDb;User Id=sa;Password=YourStrong!Password;TrustServerCertificate=True";
+
+builder.Services.RegisterSdkModule(connectionString);
 
 builder.Build().Run();
