@@ -34,11 +34,12 @@ jobs:
       
       - name: Configure NuGet credentials
         run: |
-          dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
-            --name github \
-            --username caiofabiogomes \
-            --password ${{ secrets.SECRET_NUGET_PACKAGES }} \
-            --store-password-in-clear-text
+         dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" `
+          --name github `
+          --username caiofabiogomes `
+          --password "${{ secrets.SECRET_NUGET_PACKAGES }}" `
+          --store-password-in-clear-text
+
 
       - name: Restore and Build
         run: |
