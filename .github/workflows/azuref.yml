@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-and-deploy:
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -28,10 +28,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-          
+      
       - name: Remove existing NuGet source
         run: dotnet nuget remove source github || echo "Source not found, skipping removal"
-        
+      
       - name: Configure NuGet credentials
         run: |
           dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
@@ -40,13 +40,22 @@ jobs:
             --password ${{ secrets.SECRET_NUGET_PACKAGES }} \
             --store-password-in-clear-text
 
-
       - name: Restore and Build
         run: |
           dotnet restore ${{ env.Solution_Name }}
           dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --no-restore
 
-      - name: Login to Docker Hub
+      - name: Publish Azure Function
+        run: dotnet publish ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --output ./publish
+      
+      - name: Deploy to Azure Functions
+        uses: azure/functions-action@v1
+        with:
+          app-name: "your-azure-function-name"
+          package: "./publish"
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+      
+      - name: Login to Docker Hub (Only Release)
         if: matrix.configuration == 'Release'
         uses: docker/login-action@v3
         with:
