@@ -34,7 +34,7 @@ jobs:
       
       - name: Configure NuGet credentials
         run: |
-            run: dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
+            dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
             --name github \
             --username caiofabiogomes \
             --password ${{ secrets.SECRET_NUGET_PACKAGES }} \
