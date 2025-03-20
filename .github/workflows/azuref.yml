@@ -36,8 +36,8 @@ jobs:
 
       - name: Restore and Build
         run: |
-          dotnet restore ${{ env.Solution_Name }} --configfile nuget.config
-          dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --no-restore
+          dotnet restore  --configfile nuget.config
+          dotnet build --configuration ${{ matrix.configuration }} --no-restore
 
       - name: Login to Docker Hub
         if: matrix.configuration == 'Release'
