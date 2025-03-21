@@ -46,16 +46,6 @@ jobs:
         run: |
           dotnet restore ${{ env.Solution_Name }}
           dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --no-restore
-
-      - name: Publish Azure Function
-        run: dotnet publish ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }} --output ./publish
-      
-      - name: Deploy to Azure Functions
-        uses: azure/functions-action@v1
-        with:
-          app-name: "your-azure-function-name"
-          package: "./publish"
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
       
       - name: Login to Docker Hub (Only Release)
         if: matrix.configuration == 'Release'
