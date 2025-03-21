@@ -10,7 +10,7 @@ COPY ["TCFiapConsultContactsFunction.csproj", "./"]
 ARG ARG_SECRET_NUGET_PACKAGES
 RUN dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
     --name github \
-    --username ErickGoldberg \
+    --username erickgoldberg \
     --password "${ARG_SECRET_NUGET_PACKAGES}" \
     --store-password-in-clear-text
 
