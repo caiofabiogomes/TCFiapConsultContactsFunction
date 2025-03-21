@@ -2,17 +2,16 @@ FROM mcr.microsoft.com/azure-functions/dotnet-isolated:4-dotnet-isolated8.0 AS b
 WORKDIR /home/site/wwwroot
 EXPOSE 80
 
-ARG ARG_SECRET_NUGET_PACKAGES
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["TCFiapConsultContactsFunction.csproj", "./"]
 
-
+ARG ARG_SECRET_NUGET_PACKAGES
 RUN dotnet nuget add source "https://nuget.pkg.github.com/caiofabiogomes/index.json" \
     --name github \
     --username caiofabiogomes \
-    --password "$ARG_SECRET_NUGET_PACKAGES" \
+    --password "${ARG_SECRET_NUGET_PACKAGES}" \
     --store-password-in-clear-text
 
 
